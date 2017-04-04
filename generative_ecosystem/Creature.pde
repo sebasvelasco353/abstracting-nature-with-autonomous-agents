@@ -1,5 +1,6 @@
 class Creature {
   PVector location;
+  PVector target;
   float health;
   float r;
 
@@ -30,11 +31,29 @@ class Creature {
   }
 
   void update() {
-    health -= 0.2;
+    // health -= 0.2;
   }
 
-  void seek() {
-    
+  void seek(Food f) {
+    // first we'll need our list of food locations
+    ArrayList<PVector> food = f.getFood();
+
+    if(food.size() >= 1) {
+      // we'll go to the closest one
+      int closestFoodIndex = 0;
+      for(int i = food.size()-1; i > 0; i--) {
+        PVector foodLocation = food.get(i);
+        // if the distance to our previous closest food is more than the current one we overwrite the index
+        if( PVector.dist(location, food.get(closestFoodIndex)) >= PVector.dist(location, food.get(i)) ) {
+          closestFoodIndex = i;
+        }
+      }
+      target = food.get(closestFoodIndex);
+    } else {
+      // hm, no food, lets just so somewhere random
+      target.x = random(width);
+      target.y = random(height);
+    }
   }
 
   void borders() {
