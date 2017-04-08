@@ -22,12 +22,13 @@ class World {
 
     for(int i = creatures.size()-1; i >= 0; i--) {
       Creature c = creatures.get(i);
+      c.seek(food);
       c.run();
       c.eat(food);
 
       if(c.dead()) {
         creatures.remove(i);
-        food.add(c.location);
+        food.add(c.loc);
       }
     }
   }

@@ -1,11 +1,19 @@
 class Creature {
-  PVector location;
-  PVector target;
+  PVector loc; // location
+  PVector tar; // target
+  PVector vel; // velocity
+  PVector acc; // acceleration
+  float maxforce; // maximum steering force
+  float maxspeed; // maximum speed
   float health;
   float r;
 
   Creature(PVector l) {
-    location = l.get();
+    loc = l.get();
+    vel = new PVector(0,-2);
+    acc = new PVector(0,0);
+    maxspeed = 0.5;
+    maxforce = 0.005;
     health = 200;
     r = 20;
   }
@@ -21,7 +29,7 @@ class Creature {
     // are we touching any food?
     for(int i = food.size()-1; i >= 0; i--) {
       PVector foodLocation = food.get(i);
-      float d = PVector.dist(location, foodLocation);
+      float d = PVector.dist(loc, foodLocation);
       // if we are, health goes up
       if(d < r/2) {
         health += 100;
@@ -31,7 +39,18 @@ class Creature {
   }
 
   void update() {
-    // health -= 0.2;
+    vel.add(acc); // update velocity
+    vel.limit(maxspeed); // limit speed
+    loc.add(vel);
+    acc.mult(0); // reset the acceleration each cycle
+
+    // death is always near
+    health -= 0.2;
+  }
+
+  void applyForce(PVector force) {
+    // We could add mass here if we want A = F / M
+    acc.add(force);
   }
 
   void seek(Food f) {
@@ -44,30 +63,42 @@ class Creature {
       for(int i = food.size()-1; i > 0; i--) {
         PVector foodLocation = food.get(i);
         // if the distance to our previous closest food is more than the current one we overwrite the index
-        if( PVector.dist(location, food.get(closestFoodIndex)) >= PVector.dist(location, food.get(i)) ) {
+        if( PVector.dist(loc, food.get(closestFoodIndex)) >= PVector.dist(loc, food.get(i)) ) {
           closestFoodIndex = i;
         }
       }
-      target = food.get(closestFoodIndex);
+      tar = food.get(closestFoodIndex);
     } else {
-      // hm, no food, lets just so somewhere random
-      target.x = random(width);
-      target.y = random(height);
+      // hm, no food, lets check if we are already close to our target
+      if( PVector.dist(loc, tar) >= 50) {
+        // yeah we've likely touched our target, lets pick a random new target
+        tar.x = random(width);
+        tar.y = random(height);
+      }
     }
+
+    // lets apply some force to our target
+    PVector desired = PVector.sub(tar, loc); // we get a vector that points from the location to the target
+    desired.normalize();
+    desired.mult(maxspeed);
+    // steer = desired minus velocity
+    PVector steer = PVector.sub(desired, vel);
+    steer.limit(maxforce);
+    applyForce(steer);
   }
 
   void borders() {
-    if (location.x < -r) location.x = width+r;
-    if (location.y < -r) location.y = height+r;
-    if (location.x > width+r) location.x = -r;
-    if (location.y > height+r) location.y = -r;
+    if (loc.x < -r) loc.x = width+r;
+    if (loc.y < -r) loc.y = height+r;
+    if (loc.x > width+r) loc.x = -r;
+    if (loc.y > height+r) loc.y = -r;
   }
 
   void display() {
     ellipseMode(CENTER);
-    stroke(0, health);
-    fill(0, health);
-    ellipse(location.x, location.y, r, r);
+    stroke(0,0,0, health);
+    fill(0,0,0, health);
+    ellipse(loc.x, loc.y, r, r);
   }
 
   boolean dead() {
