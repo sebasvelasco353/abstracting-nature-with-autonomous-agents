@@ -1,20 +1,22 @@
 class World {
 
+  Box2DProcessing box2d;
   ArrayList<Creature> creatures;
   Food food;
 
-  World(int num) {
+  World(int num, Box2DProcessing _box2d) {
+    box2d = _box2d;
     food = new Food(num);
     creatures = new ArrayList<Creature>();
     for(int i = 0; i < num; i++) {
       PVector l = new PVector(random(width), random(height));
-      creatures.add(new Creature(l));
+      creatures.add(new Creature(l, box2d));
     }
   }
 
   void born(float x, float y) {
     PVector l = new PVector(x,y);
-    creatures.add(new Creature(l));
+    creatures.add(new Creature(l, box2d));
   }
 
   void run() {
@@ -28,7 +30,7 @@ class World {
 
       if(c.dead()) {
         creatures.remove(i);
-        food.add(c.loc);
+        food.add(c.getPosition());
       }
     }
   }
