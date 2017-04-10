@@ -12,6 +12,7 @@ class Attractor {
   // We need to keep track of a Body and a radius
   Body body;
   float r;
+  color col;
 
   Attractor(float r_, float x, float y) {
     r = r_;
@@ -27,6 +28,8 @@ class Attractor {
     cs.m_radius = box2d.scalarPixelsToWorld(r);
 
     body.createFixture(cs,1);
+    body.setUserData(this);
+    col = color(0);
   }
 
 
@@ -58,11 +61,17 @@ class Attractor {
     pushMatrix();
     translate(pos.x,pos.y);
     rotate(a);
-    fill(0);
-    stroke(0);
-    strokeWeight(1);
+    fill(col);
+    noStroke();
+    // stroke(0);
+    // strokeWeight(1);
     ellipse(0,0,r*2,r*2);
     popMatrix();
+  }
+
+  // Change color when hit
+  void change() {
+    col = color(255, 0, 0);
   }
 
   PVector getPosition() {

@@ -29,6 +29,7 @@ class Creature {
     fd.restitution = 0.5;
 
     body.createFixture(fd);
+    body.setUserData(this);
 
     body.setLinearVelocity(new Vec2(random(-5,5),random(-5,-5)));
     body.setAngularVelocity(random(-1,1));
