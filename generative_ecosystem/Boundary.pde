@@ -42,50 +42,10 @@ class Boundary {
     w_right = 1;
     h_right = h_;
 
-    // Define the upper/lower/left/right polygon
-    PolygonShape sd_upper = new PolygonShape();
-    PolygonShape sd_lower = new PolygonShape();
-    PolygonShape sd_left = new PolygonShape();
-    PolygonShape sd_right = new PolygonShape();
-
-    // We're just a box
-    sd_upper.setAsBox(box2d.scalarPixelsToWorld(w_upper/2), box2d.scalarPixelsToWorld(h_upper/2));
-    sd_lower.setAsBox(box2d.scalarPixelsToWorld(w_lower/2), box2d.scalarPixelsToWorld(h_lower/2));
-    sd_left.setAsBox(box2d.scalarPixelsToWorld(w_left/2), box2d.scalarPixelsToWorld(h_left/2));
-    sd_right.setAsBox(box2d.scalarPixelsToWorld(w_right/2), box2d.scalarPixelsToWorld(h_right/2));
-
-    // Create the body
-    BodyDef bd_upper = new BodyDef();
-    bd_upper.type = BodyType.STATIC;
-    bd_upper.position.set(box2d.coordPixelsToWorld(x_upper,y_upper));
-    b = box2d.createBody(bd_upper);
-    // Attached the shape to the body using a Fixture
-    b.createFixture(sd_upper,1);
-    b.setUserData(this);
-
-    BodyDef bd_lower = new BodyDef();
-    bd_lower.type = BodyType.STATIC;
-    bd_lower.position.set(box2d.coordPixelsToWorld(x_lower,y_lower));
-    b = box2d.createBody(bd_lower);
-    // Attached the shape to the body using a Fixture
-    b.createFixture(sd_lower,1);
-    b.setUserData(this);
-
-    BodyDef bd_left = new BodyDef();
-    bd_left.type = BodyType.STATIC;
-    bd_left.position.set(box2d.coordPixelsToWorld(x_left,y_left));
-    b = box2d.createBody(bd_left);
-    // Attached the shape to the body using a Fixture
-    b.createFixture(sd_left,1);
-    b.setUserData(this);
-
-    BodyDef bd_right = new BodyDef();
-    bd_right.type = BodyType.STATIC;
-    bd_right.position.set(box2d.coordPixelsToWorld(x_right,y_right));
-    b = box2d.createBody(bd_right);
-    // Attached the shape to the body using a Fixture
-    b.createFixture(sd_right,1);
-    b.setUserData(this);
+    makeBody(x_upper, y_upper, w_upper, h_upper);
+    makeBody(x_lower, y_lower, w_lower, h_lower);
+    makeBody(x_left, y_left, w_left, h_left);
+    makeBody(x_right, y_right, w_right, h_right);
   }
 
   // Draw the boundary, if it were at an angle we'd have to do something fancier
@@ -97,6 +57,23 @@ class Boundary {
     rect(x_lower,y_lower,w_lower,h_lower);
     rect(x_left,y_left,w_left,h_left);
     rect(x_right,y_right,w_right,h_right);
+  }
+
+  void makeBody(float x, float y, float w, float h) {
+    PolygonShape sd = new PolygonShape();
+    sd.setAsBox(box2d.scalarPixelsToWorld(w/2), box2d.scalarPixelsToWorld(h/2));
+
+    BodyDef bd = new BodyDef();
+    bd.type = BodyType.STATIC;
+    bd.position.set(box2d.coordPixelsToWorld(x,y));
+    b = box2d.createBody(bd);
+    // Attached the shape to the body using a Fixture
+    FixtureDef fd = new FixtureDef();
+    fd.shape = sd;
+    fd.filter.categoryBits = 0x0004;
+    fd.filter.maskBits = 0x0001;
+    b.createFixture(fd);
+    b.setUserData(this);
   }
 
 }

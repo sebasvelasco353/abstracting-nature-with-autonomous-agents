@@ -1,5 +1,4 @@
 class Food {
-  // ArrayList<PVector> food;
   ArrayList<Attractor> food;
   int r = 3;
 
@@ -12,7 +11,6 @@ class Food {
   }
 
   void add(PVector l) {
-    // food.add(l.get());
     food.add(new Attractor(r, l.x, l.y));
   }
 
@@ -25,7 +23,7 @@ class Food {
     }
 
     // There's a small chance food will appear randomly
-    if(random(1) < 0.001) {
+    if(random(1) < 0.01) {
       food.add(new Attractor(r, random(width), random(height)));
     }
   }

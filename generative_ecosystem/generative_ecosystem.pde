@@ -39,6 +39,7 @@ void mousePressed() {
   world.born(mouseX, mouseY);
 }
 
+/* we don't need to do anything with collision events at this moment
 // Collision event functions!
 void beginContact(Contact cp) {
   // Get both fixtures
@@ -66,3 +67,4 @@ void beginContact(Contact cp) {
 // Objects stop touching each other
 void endContact(Contact cp) {
 }
+*/

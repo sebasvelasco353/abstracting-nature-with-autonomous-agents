@@ -19,6 +19,7 @@ class Attractor {
     // Define a body
     BodyDef bd = new BodyDef();
     bd.type = BodyType.STATIC;
+
     // Set its position
     bd.position = box2d.coordPixelsToWorld(x,y);
     body = box2d.world.createBody(bd);
@@ -27,7 +28,12 @@ class Attractor {
     CircleShape cs = new CircleShape();
     cs.m_radius = box2d.scalarPixelsToWorld(r);
 
-    body.createFixture(cs,1);
+    FixtureDef fd = new FixtureDef();
+    fd.shape = cs;
+    fd.filter.categoryBits = 0x0001;
+    fd.filter.maskBits = 0x0004;
+
+    body.createFixture(fd);
     body.setUserData(this);
     col = color(0);
   }
@@ -63,8 +69,6 @@ class Attractor {
     rotate(a);
     fill(col);
     noStroke();
-    // stroke(0);
-    // strokeWeight(1);
     ellipse(0,0,r*2,r*2);
     popMatrix();
   }

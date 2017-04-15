@@ -24,7 +24,9 @@ class World {
 
     for(int i = creatures.size()-1; i >= 0; i--) {
       Creature c = creatures.get(i);
-      c.seek(food);
+      if(c.health < 150) {
+        c.seek(food);
+      }
       c.run();
       c.eat(food);
 

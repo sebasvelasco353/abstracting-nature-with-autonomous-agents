@@ -18,7 +18,7 @@ class Creature {
     body = box2d.world.createBody(bd);
     // lets make it a circle
     CircleShape cs = new CircleShape();
-    cs.m_radius = box2d.scalarPixelsToWorld(r);
+    cs.m_radius = box2d.scalarPixelsToWorld(r*0.5);
 
     // lets define a fixture
     FixtureDef fd = new FixtureDef();
@@ -27,6 +27,9 @@ class Creature {
     fd.density = 1;
     fd.friction = 0.3;
     fd.restitution = 0.5;
+    fd.filter.categoryBits = 0x0001;
+    fd.filter.maskBits = 0x0004;
+    fd.filter.groupIndex = 2;
 
     body.createFixture(fd);
     body.setUserData(this);
@@ -37,7 +40,6 @@ class Creature {
 
   void run() {
     update();
-    borders();
     display();
   }
 
@@ -81,6 +83,9 @@ class Creature {
       }
 
       Vec2 force = food.get(closestFoodIndex).attract(this);
+      // we add some noise to the forces to make them a bit more alive
+      force.x += noise(millis() * 0.02)/10.0;
+      force.y += noise(10000 + (millis() * 0.2))/10.0;
       applyForce(force);
 
       tar = food.get(closestFoodIndex).getPosition();
@@ -92,29 +97,6 @@ class Creature {
         tar.y = random(height);
       }
     }
-
-    // lets apply some force to our target
-    // PVector desired = PVector.sub(tar, loc); // we get a vector that points from the location to the target
-    // desired.normalize();
-    // desired.mult(maxspeed);
-    // // steer = desired minus velocity
-    // PVector steer = PVector.sub(desired, vel);
-    // steer.limit(maxforce);
-    // a.setPosition(tar);
-    // applyForce(steer);
-
-    // for(int i = 0; i < food.size(); i++) {
-    //   Vec2 force = food.get(i).attract(this);
-    //   applyForce(force);
-    // }
-
-  }
-
-  void borders() {
-    // if (loc.x < -r) loc.x = width+r;
-    // if (loc.y < -r) loc.y = height+r;
-    // if (loc.x > width+r) loc.x = -r;
-    // if (loc.y > height+r) loc.y = -r;
   }
 
   void display() {
