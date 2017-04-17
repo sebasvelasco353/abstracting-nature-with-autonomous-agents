@@ -1,4 +1,4 @@
-class Creature {
+abstract class Creature {
   PVector tar; // target
   float health;
   float r;

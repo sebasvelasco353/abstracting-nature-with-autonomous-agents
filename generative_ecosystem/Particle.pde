@@ -5,7 +5,7 @@
 
 // A circular particle
 
-class Particle {
+abstract class Particle {
 
   // We need to keep track of a Body and a radius
   Body body;
