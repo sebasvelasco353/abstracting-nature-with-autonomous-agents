@@ -35,7 +35,7 @@ class Attractor {
 
     body.createFixture(fd);
     body.setUserData(this);
-    col = color(0);
+    col = color(255);
   }
 
 

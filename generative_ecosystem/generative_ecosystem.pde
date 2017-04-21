@@ -29,7 +29,7 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  background(10);
   box2d.step(); // we always step through time
   world.run();
   wall.display();

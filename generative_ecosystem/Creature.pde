@@ -101,7 +101,7 @@ abstract class Creature {
 
   void display() {
     ellipseMode(CENTER);
-    stroke(0,0,0, health);
+    stroke(250,250,250, health);
     fill(0,0,0, health);
     Vec2 pos = box2d.getBodyPixelCoord(body);
     ellipse(pos.x, pos.y, r, r);

@@ -16,9 +16,6 @@ class Food {
 
   void run() {
     for(Attractor f : food) {
-      rectMode(CENTER);
-      stroke(0);
-      fill(175);
       f.display();
     }
 
