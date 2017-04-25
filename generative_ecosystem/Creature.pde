@@ -107,6 +107,21 @@ abstract class Creature {
     ellipse(pos.x, pos.y, r, r);
   }
 
+  void displayDebug() {
+    // box2D boundary
+    ellipseMode(CENTER);
+    stroke(250,0,0);
+    noFill();
+    Vec2 pos = box2d.getBodyPixelCoord(body);
+    ellipse(pos.x, pos.y, r, r);
+  }
+
+  PVector getVelocity() {
+    Vec2 vel = body.getLinearVelocity();
+    PVector p = new PVector(vel.x,vel.y);
+    return p;
+  }
+
   PVector getPosition() {
     Vec2 pos = box2d.getBodyPixelCoord(body);
     PVector p = new PVector(pos.x, pos.y);
