@@ -35,7 +35,7 @@ abstract class Creature {
     body.createFixture(fd);
     body.setUserData(this);
 
-    body.setLinearVelocity(new Vec2(random(-5,5),random(-5,-5)));
+    body.setLinearVelocity(new Vec2(random(-5,5),random(-5,5)));
     body.setAngularVelocity(random(-1,1));
   }
 
