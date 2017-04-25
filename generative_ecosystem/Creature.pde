@@ -8,6 +8,7 @@ abstract class Creature {
   Creature(PVector l, Box2DProcessing _box2d) {
     r = 20;
     health = 200;
+    tar = new PVector(random(width), random(height));
 
     box2d = _box2d;
     // lets define a body
