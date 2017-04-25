@@ -9,7 +9,8 @@ At the end of the workshop this will be the folder where each group delivers its
   * G1_ecosystem 📂
     * Attractor.pde (don’t edit this file)
     * Boundary.pde (don’t edit this file)
-    * Creature.pde (this is where the magic happens)
+    * Creature.pde (don't edit this file, examine closely though)
+    * CreatureCustomname.pde (this is where the magic happens, dont't forget to apply a custom name!)
     * Food.pde (don’t edit this file)
     * G1_ecosystem.pde (don’t edit this file)
     (you’ve renamed this from generative_ecosystem.pde)
