@@ -5,4 +5,7 @@ class CreatureTeamX extends Creature {
 
   // here you'll start with your code, you can make your own
   // functions and overwrite the display() function
+  // void display() {
+  //   displayDebug();
+  // }
 }

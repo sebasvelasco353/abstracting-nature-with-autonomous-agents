@@ -2,7 +2,7 @@ class CreatureBoid extends Creature {
   ArrayList<PVector> history = new ArrayList<PVector>();
   int tailLen = 20;
   color cHead = color(246, 236, 19);
-  color cHeadDead = color(0,0,250);
+  color cHeadDead = color(0, 0, 250);
   color cTail = color(240, 102, 153);
 
   CreatureBoid(PVector l, Box2DProcessing _box2d) {
@@ -26,7 +26,7 @@ class CreatureBoid extends Creature {
     int counter = 0;
 
     // we make a boid trail based on the location history
-    for (PVector v: history) {
+    for (PVector v : history) {
       if (!bEven && counter < (tailLen-2)) {
         bEven = true;
         PVector pos = v;
@@ -54,5 +54,6 @@ class CreatureBoid extends Creature {
       }
       counter++;
     }
+    //displayDebug();
   }
 }
