@@ -1,6 +1,5 @@
 class World {
   Box2DProcessing box2d;
-  // ArrayList<CreatureBoid> creatureBoids;
   ArrayList<Creature> creatures;
   Food food;
 
@@ -10,25 +9,25 @@ class World {
     creatures = new ArrayList<Creature>();
     for(int i = 0; i < num; i++) {
       PVector l = new PVector(random(width), random(height));
-      bornRandom(l, box2d);
+      bornRandomCreature(l, box2d);
     }
   }
 
-  void bornRandom(PVector l, Box2DProcessing _box2d) {
-    float r = random(1);
-    if(r >= .5) {
+  void bornRandomCreature(PVector l, Box2DProcessing _box2d) {
+    int numCreatureClasses = 2; // don't forget to update!
+
+    float r = random(1.0);
+    float threshold = 1.0 / numCreatureClasses;
+
+    // not the prettiest way, but unfortunately we can't dynamically call random classes from the same abstract class
+    if(r < threshold * 1) {
       CreatureBoid c = new CreatureBoid(l, _box2d);
       creatures.add(c);
-    } else {
+    } else if(r < threshold * 2) {
       CreatureTeamX c = new CreatureTeamX(l, _box2d);
       creatures.add(c);
     }
-  }
-
-  void born(float x, float y) {
-    PVector l = new PVector(x,y);
-    // creatureBoids.add(new CreatureBoid(l, box2d));
-    bornRandom(l, box2d);
+    // we'll add if statements for the other creatures too
   }
 
   void run() {

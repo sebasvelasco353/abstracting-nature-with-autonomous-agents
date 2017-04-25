@@ -36,5 +36,5 @@ void draw() {
 }
 
 void mousePressed() {
-  world.born(mouseX, mouseY);
+  world.bornRandomCreature(new PVector(mouseX, mouseY), box2d);
 }
