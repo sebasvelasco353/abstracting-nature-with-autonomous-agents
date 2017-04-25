@@ -15,9 +15,9 @@ At the end of the workshop this will be the folder where each group delivers its
     (you’ve renamed this from generative_ecosystem.pde)
     * World.pde (don’t edit this file)
     * G1_ecosystem (include a compiled executable just in case there is an issue running the code, see below how to do this)
-* Common libraries 📂 (only place the ones that aren't listed yet)
+* libraries 📂 (located in the repo root, only place the ones that aren't listed yet)
 
 
 ## Making a compiled executable
 
-In your processing application click on File in the dropdown menu and choose Export Application or press ⇪⌘E. Make sure Embed Java is unchecked or your file will be huge.  
+In your processing application click on File in the dropdown menu and choose Export Application or press `⇪⌘E`. Make sure Embed Java is unchecked or your file will be huge.
