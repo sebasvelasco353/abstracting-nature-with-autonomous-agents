@@ -10,14 +10,14 @@ abstract class Creature {
     health = 200;
     tar = new PVector(random(width), random(height));
     box2d = _box2d;
-    
+
     makeBody(l);
   }
 
   void makeBody(PVector l) {
     // take a look at Shiffman's explanation about complex shapes in Box2D
     // https://vimeo.com/60782771
-    
+
     // we use a custom polygon shape to create a rough circle
     // use displayDebug() in order to see the shape drawn
     int shapeResolution = 8;
@@ -26,7 +26,7 @@ abstract class Creature {
     for(int i = 0; i < shapeResolution; i++) {
       vertices[i] = box2d.vectorPixelsToWorld(new Vec2(cos(angle*i) * r/2, sin(angle*i) * r/2));
     }
-    
+
     // lets define a body
     BodyDef bd = new BodyDef();
     bd.type = BodyType.DYNAMIC;
@@ -37,7 +37,7 @@ abstract class Creature {
     // Define a polygon (this is what we use for a rectangle)
     PolygonShape ps = new PolygonShape();
     ps.set(vertices, vertices.length);
-    
+
     // lets define a fixture
     FixtureDef fd = new FixtureDef();
     fd.shape = ps;

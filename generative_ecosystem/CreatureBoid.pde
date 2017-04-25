@@ -54,6 +54,6 @@ class CreatureBoid extends Creature {
       }
       counter++;
     }
-    //displayDebug();
+    // displayDebug();
   }
 }
