@@ -24,7 +24,7 @@ class World {
       CreatureBoid c = new CreatureBoid(l, _box2d);
       creatures.add(c);
     } else if(r < threshold * 2) {
-      CreatureTeamX c = new CreatureTeamX(l, _box2d);
+      Chakave c = new Chakave(l, _box2d);
       creatures.add(c);
     }
     // we'll add if statements for the other creatures too
